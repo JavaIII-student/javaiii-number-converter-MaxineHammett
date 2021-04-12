@@ -1,33 +1,28 @@
-package NumberConverter;
-
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Button;
 
-import java.awt.Dialog.ModalityType;
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.wb.swt.SWTResourceManager;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 
-public class Menu{
+public class Menu {
 
 	protected Shell shlNumberConversionTool;
 
 	/**
 	 * Launch the application.
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		try {
-			Menu window = new Menu();
-			window.open();
+			Menu obj = new Menu();
+			obj.open();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -53,56 +48,111 @@ public class Menu{
 	 */
 	protected void createContents() {
 		shlNumberConversionTool = new Shell();
-		shlNumberConversionTool.setSize(852, 300);
+		shlNumberConversionTool.setSize(724, 300);
 		shlNumberConversionTool.setText("Number Conversion Tool");
-		
+
 		Button btnBinToDec = new Button(shlNumberConversionTool, SWT.NONE);
 		btnBinToDec.addMouseListener(new MouseAdapter() {
-
 			@Override
 			public void mouseDown(MouseEvent e) {
-			    try {    // prompt the user for a number
-		    JFrame frame = new JFrame("InputDialog Example #1");
-			        String convNo = JOptionPane.showInputDialog(frame, "Input a number then select a button?");
+				String inputNo = JOptionPane.showInputDialog("What number would you like to convert?");
+				int inputedNo = Integer.parseInt(inputNo);
+				Binary ob = new Binary();
+				int btod = ob.binaryToDec(inputedNo);
 
-			        // get the user's input. note that if they press Cancel, 'name' will be null
-			        System.out.printf("You selected '%s'.\n", convNo);
-			        System.exit(0);
-			    } catch (Exception ex) {
-			        ex.printStackTrace();
-			    }
+				String msgBintoDec = "Binary number : " + inputedNo + "\nConverted to Decimal: " + btod;
+				// returning the decimal number
+				JOptionPane.showMessageDialog(null, msgBintoDec);
 			}
 		});
-		btnBinToDec.setBounds(10, 10, 143, 41);
+		btnBinToDec.setBounds(10, 10, 128, 44);
 		btnBinToDec.setText("Bin to Dec");
-		
+
 		Button btnBinToHex = new Button(shlNumberConversionTool, SWT.NONE);
-		btnBinToHex.setBounds(161, 10, 128, 41);
+		btnBinToHex.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDown(MouseEvent e) {
+				String inputNo = JOptionPane.showInputDialog("What number would you like to convert?");
+				int inputedNo = Integer.parseInt(inputNo);
+				Binary ob = new Binary();
+				String btoH = ob.binToHex(inputedNo);
+
+				String msgBintoDec = "Binary number : " + inputedNo + "\nConverted to Hexidecimal: " + btoH;
+				// returning the decimal number
+				JOptionPane.showMessageDialog(null, msgBintoDec);
+			}
+
+		});
+		btnBinToHex.setBounds(144, 10, 106, 44);
 		btnBinToHex.setText("Bin to Hex");
-		
+
 		Button btnDecToBin = new Button(shlNumberConversionTool, SWT.NONE);
-		btnDecToBin.setBounds(295, 10, 135, 41);
+		btnDecToBin.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDown(MouseEvent e) {
+				String inputNo = JOptionPane.showInputDialog("What number would you like to convert?");
+				int inputedNo = Integer.parseInt(inputNo);
+
+				Decimal decTobin = new Decimal();
+				StringBuilder btD = decTobin.decToBinary(inputedNo);
+
+				String msgBintoDec = "Decimal number : " + inputedNo + "\nConverted to binary: " + btD;
+				JOptionPane.showMessageDialog(null, msgBintoDec);
+			}
+		});
+		btnDecToBin.setBounds(257, 10, 100, 44);
 		btnDecToBin.setText("Dec to Bin");
-		
+
 		Button btnDecToHex = new Button(shlNumberConversionTool, SWT.NONE);
-		btnDecToHex.setBounds(439, 10, 121, 41);
+		btnDecToHex.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDown(MouseEvent e) {
+				String inputNo = JOptionPane.showInputDialog("What number would you like to convert?");
+				int inputedNo = Integer.parseInt(inputNo);
+
+				Decimal decTohex = new Decimal();
+				StringBuilder btH = decTohex.decToBinary(inputedNo);
+
+				String msgBintoDec = "Decimal number : " + inputedNo + "\nConverted to Hexidecimal: " + btH;
+				JOptionPane.showMessageDialog(null, msgBintoDec);
+			}
+		});
+		btnDecToHex.setBounds(363, 10, 100, 44);
 		btnDecToHex.setText("Dec to Hex");
-		
+
 		Button btnHexToBin = new Button(shlNumberConversionTool, SWT.NONE);
-		btnHexToBin.setBounds(569, 10, 121, 41);
+		btnHexToBin.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDown(MouseEvent e) {
+				String hex = JOptionPane.showInputDialog("What number would you like to convert?");
+				Hexadecimal hextodec = new Hexadecimal();
+
+				// hexToBinary() function
+				String hTd = hextodec.hexToBinary(hex);
+				String msgHexToBin = "Hexidecimal number : " + hex + "\nConverted to binary: " + hTd;
+				JOptionPane.showMessageDialog(null, msgHexToBin);
+			}
+		});
+		btnHexToBin.setBounds(469, 10, 113, 44);
 		btnHexToBin.setText("Hex to Bin");
-		
+
 		Button btnHexToDec = new Button(shlNumberConversionTool, SWT.NONE);
-		btnHexToDec.setBounds(696, 10, 114, 41);
+		btnHexToDec.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDown(MouseEvent e) {
+				String hex = JOptionPane.showInputDialog("What number would you like to convert?");
+				Hexadecimal hextodec = new Hexadecimal();
+
+				// hexToDec() function
+				int hTd = hextodec.hexToDec(hex);
+				String msgHexToBin = "Hexidecimal number : " + hex + "\nConverted to Decimal : " + hTd;
+				JOptionPane.showMessageDialog(null, msgHexToBin);
+
+			}
+		});
+		btnHexToDec.setBounds(588, 10, 113, 44);
 		btnHexToDec.setText("Hex to Dec");
-		
-		Label lblLbloutput = new Label(shlNumberConversionTool, SWT.BORDER);
-		lblLbloutput.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
-		lblLbloutput.setBounds(202, 112, 411, 117);
-		
-		Label lblConvertedNumber = new Label(shlNumberConversionTool, SWT.NONE);
-		lblConvertedNumber.setBounds(161, 81, 143, 25);
-		lblConvertedNumber.setText("Converted number:");
 
 	}
+
 }

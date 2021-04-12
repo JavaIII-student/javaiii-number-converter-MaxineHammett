@@ -1,16 +1,19 @@
-package NumberConverter;
-
+/**
+ * 
+ * @author Maxine Hammett
+ * Date April 12,2021
+ * Assignment 1 - Number converter
+ *
+ */
 public class NumberConverter {
 
 	public static void main(String[] args) {
-		Menu obj = new Menu() ; 
-		obj.open();
-
-	}
-
-	private static void NumberConverter() {
-		// TODO Auto-generated method stub
+	
+		//Create and displays menu
+		Menu menu = new Menu();
+		menu.open();		
 		
+
 	}
 
 }
